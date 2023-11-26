@@ -1,0 +1,214 @@
+const char index_html[] PROGMEM = R"rawliteral(
+<!DOCTYPE HTML><html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кормилка</title>
+  
+</head>
+<body>
+  <div>
+    <h2>Кормилка v1.0</h2>
+  </div>
+
+  <div class="table_container">
+    <table class="table_item">
+      <tbody>
+      <tr>
+        <td><button class="table_button" onclick="toggle_style(1)" id="button1">00:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(2)" id="button2">00:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(3)" id="button3">01:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(4)" id="button4">01:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(5)" id="button5">02:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(6)" id="button6">03:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(7)" id="button7">03:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(8)" id="button8">04:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(9)" id="button9">04:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(10)" id="button10">05:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(11)" id="button11">05:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(12)" id="button12">06:00</button></td>
+      </tr>
+      <tr>
+        <td><button class="table_button" onclick="toggle_style(13)" id="button13">06:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(14)" id="button14">07:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(15)" id="button15">07:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(16)" id="button16">08:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(17)" id="button17">08:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(18)" id="button18">09:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(19)" id="button19">09:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(20)" id="button20">10:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(21)" id="button21">10:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(22)" id="button22">11:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(23)" id="button23">11:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(24)" id="button24">12:00</button></td>
+      </tr>
+      <tr>
+        <td><button class="table_button" onclick="toggle_style(25)" id="button25">13:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(26)" id="button26">13:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(27)" id="button27">14:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(28)" id="button28">14:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(29)" id="button29">15:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(30)" id="button30">15:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(31)" id="button31">16:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(32)" id="button32">16:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(33)" id="button33">17:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(34)" id="button34">17:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(35)" id="button35">18:00</button></td>
+        
+      </tr>
+      <tr>
+        <td><button class="table_button" onclick="toggle_style(36)" id="button36">18:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(37)" id="button37">19:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(38)" id="button38">19:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(39)" id="button39">20:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(40)" id="button40">20:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(41)" id="button41">21:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(42)" id="button42">21:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(43)" id="button43">22:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(44)" id="button44">22:30</button></td>
+        <td><button class="table_button" onclick="toggle_style(45)" id="button45">23:00</button></td>
+        <td><button class="table_button" onclick="toggle_style(46)" id="button46">23:30</button></td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+
+  <div class="main_container">
+    <div class="weight_radio_group">
+      <div class="weight_radio_group_item">
+        <input id="radio-1" type="radio" name="radio" value="1" checked>
+        <label for="radio-1">20 грамм</label>
+      </div>
+      <div class="weight_radio_group_item">
+        <input id="radio-2" type="radio" name="radio" value="2">
+        <label for="radio-2">30 грамм</label>
+      </div>
+      <div class="weight_radio_group_item">
+        <input id="radio-3" type="radio" name="radio" value="3">
+        <label for="radio-3">50 грамм</label>
+      </div>
+      
+    </div>
+    </div>
+  <p></p>
+  <button type="button" name="submit">Покормить сейчас</button>
+<p></p>
+
+<script>
+  function updateSliderPWM(element) {
+    var slider_value = document.getElementById("pwmSlider").value;
+    document.getElementById("textslider_value").innerHTML = slider_value;
+    console.log(slider_value);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/slider?value="+slider_value, true);
+    xhr.send();
+  }
+
+  function toggle_style(numb){
+    var btn = document.getElementById('button' + numb);
+    
+    console.log(btn.style.background.toString());
+    if (btn.style.background == '#ff6600') {
+      btn.style.background = '#ffe0a6';
+    }else{
+      btn.style.background = '#ff6600';
+    }
+  }
+  
+
+</script>
+</body>
+
+<style>
+  html {font-family: Times New Roman; display: inline-block; text-align: center;}
+  h2 {font-size: 2.3rem;}
+  p {font-size: 2.0rem;}
+  body {max-width: 400px; margin:0px auto; padding-bottom: 25px;}
+
+  
+  .weight_button_group {
+    display: inline-block;
+    overflow: hidden;
+  }
+  .weight_button_item{
+    display: inline-block;
+    
+  }
+  .weight_radio_group input[type=radio] {
+    display: none;
+  }
+  .weight_radio_group label {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 15px;
+  line-height: 34px;
+  border: 1px solid #999;
+  user-select: none;
+  }
+  .weight_radio_group .weight_radio_group_item:first-child label {
+  border-radius: 6px 6px 0 0;
+  }
+  .weight_radio_group .weight_radio_group_item:last-child label {
+  border-radius: 0 0 6px 6px;
+  border-right: 1px solid #999;
+  }
+  .weight_radio_group input[type=radio]:checked + label {
+  background: #ffe0a6;
+  }
+  .weight_radio_group label:hover {
+  color: #666;
+  }
+  .weight_radio_group input[type=radio]:disabled + label {
+  background: #efefef;
+  color: #666;
+  }
+
+  button[name="submit"] { 
+    border: none;
+    border-radius: 7px;
+    padding: 10px 25px;
+    background: #ffe0a6;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  button[name="submit"]:hover { 
+    background: #ff6600;
+  } 
+  
+
+  time_table{
+    border: 3px solid #000000;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f2f2f2;
+
+  }
+
+  .main_container {
+    width: 80%;
+    margin: 0 auto;
+    padding: auto;
+    background-color: #f2f2f2;
+  }
+  .table_container{
+    width: auto;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+  }
+
+  .table_button{
+    border-radius: 5px;
+    padding: 3px;
+    background: #ffe0a6;
+    border: 1px solid #000000;
+  }
+  .table_button:hover{
+    color: #666;
+  }
+
+</style>
+
+</html>
+)rawliteral";
