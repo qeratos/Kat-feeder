@@ -3,91 +3,118 @@
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <Servo.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
-const char* ssid = "Home";
-const char* password = "0415204152";
 
-const int led_pin = 13;
-String slider_value = "0";
 
-const char* input_parameter = "value";
-Servo myservo;
-AsyncWebServer server(80);
 
-const char index_html[] PROGMEM = R"rawliteral(
-<!DOCTYPE HTML><html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ESP8266 Brightness Control Web Server</title>
-  <style>
-    html {font-family: Times New Roman; display: inline-block; text-align: center;}
-    h2 {font-size: 2.3rem;}
-    p {font-size: 2.0rem;}
-    body {max-width: 400px; margin:0px auto; padding-bottom: 25px;}
-    .slider { -webkit-appearance: none; margin: 14px; width: 360px; height: 25px; background: #FF0000;
-      outline: none; -webkit-transition: .2s; transition: opacity .2s;}
-    .slider::-webkit-slider-thumb {-webkit-appearance: none; appearance: none; width: 35px; height: 35px; background:#01070a; cursor: pointer;}
-    .slider::-moz-range-thumb { width: 35px; height: 35px; background: #01070a; cursor: pointer; } 
-  </style>
-</head>
-<body>
-  <h2>ESP8266 Brightness Control Web Server</h2>
-  <p><span id="textslider_value">%SLIDERVALUE%</span></p>
-  <p><input type="range" onchange="updateSliderPWM(this)" id="pwmSlider" min="0" max="180" value="%SLIDERVALUE%" step="1" class="slider"></p>
-<script>
-function updateSliderPWM(element) {
-  var slider_value = document.getElementById("pwmSlider").value;
-  document.getElementById("textslider_value").innerHTML = slider_value;
-  console.log(slider_value);
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/slider?value="+slider_value, true);
-  xhr.send();
+
+class Motion{
+  public:
+    Motion();
+    void drop_piece(int piece);
+    void set_null(bool is_null);
+    void set_max_angl(int angle);
+  private:
+    int angle = 0;
+    Servo myservo;
+};
+
+Motion::Motion(){
+
 }
-</script>
-</body>
-</html>
-)rawliteral";
 
-String processor(const String& var){
-  if (var == "SLIDERVALUE"){
-    return slider_value;
-  }
-  return String();
+void Motion::drop_piece(int piece){
+
 }
+
+void Motion::set_null(bool is_null){
+
+}
+
+void Motion::set_max_angl(int angle){
+
+}
+
+
+
+
+class Web{
+  public:
+    Web();
+
+  private:
+    const char *ssid = "iPhone (Nikita)";
+    const char *password = "qwerty1177";
+
+    AsyncWebServer hserver;
+};
+
+Web::Web() : hserver(80){
+  
+}
+
+class Time{
+  public:
+    Time();
+    int get_hour();
+    int get_minute();
+    String get_time();
+  private:
+    const long utcOffsetInSeconds = 3*60*60;
+    String time;
+    int minute, hour;
+
+    void parcetime();
+    WiFiUDP ntpUDP;
+    NTPClient timeClient;
+};
+
+Time::Time() : timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds){
+  timeClient.begin();
+  timeClient.setTimeOffset(3600*3);
+}
+
+String Time::get_time(){
+  timeClient.update();
+  this->time = timeClient.getFormattedTime();
+  return time;
+}
+
+int Time::get_minute(){
+  parcetime();
+  return this->minute;
+}
+
+int Time::get_hour(){
+  parcetime();
+  return hour;
+}
+
+void Time::parcetime(){
+  timeClient.update();
+  this->time = timeClient.getFormattedTime();
+  char charArray[this->time.length() + 1];
+  time.toCharArray(charArray, sizeof(charArray));
+  this->hour = atoi(strtok(charArray, ":"));
+  this->minute = atoi(strtok(NULL, ":"));
+}
+
+
+Time current;
 
 void setup(){
-  myservo.attach(led_pin);
   Serial.begin(115200);
-
-  WiFi.begin(ssid, password);
+   Serial.println("iPhone");
+  WiFi.begin("iPhone (Nikita)", "qwerty1177");
   while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting...");
+    delay(500);
+    Serial.print(".");
   }
-
   Serial.println(WiFi.localIP());
-
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/html", index_html, processor);
-  });
-
-  server.on("/slider", HTTP_GET, [] (AsyncWebServerRequest *request) {
-    String message;
-    if (request->hasParam(input_parameter)) {
-      message = request->getParam(input_parameter)->value();
-      slider_value = message;
-      myservo.write(slider_value.toInt());
-    }
-    else {
-      message = "No message sent";
-    }
-    Serial.println(message);
-    request->send(200, "text/plain", "OK");
-  });
-  
-  server.begin();
 }
   
 void loop() {
-  
+  Serial.println(current.get_time());
 }
