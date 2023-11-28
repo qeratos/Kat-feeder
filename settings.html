@@ -1,0 +1,194 @@
+<!DOCTYPE html><html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8" />
+        <title>Настройки кормилки</title>
+    </head>
+
+
+    <body>  
+        <div class="title_container">
+            <h2>Кормилка v1.0</h2>
+            <p class="header_mini" id="mini_header">Настройки</p>
+                <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAhQAAAIUB4uz/wQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAH0SURBVEiJ3dWxS5ZRFAbw3zEV+jAIQ1xSsIgShGxJBwltkhbXhnKzf6AQxPoHGoqiWmzLpKXIFo3IGpocWpqiBteIVqMIboNXur5+ft9nbR04w33OOc9zz3vPvW+klLRiETGG83m5llJ6l/HDuIRveJZS+lHWtbVAXIuIRczhQ/a5iFiMiBoW8AUHcHMXQUppT8cRvMREndhEji0X2PNdeQ3I+/EGww1yhrGO/n0JYCiTD1TwWcxWsIGcO4Q7TQUwhlfoKbA23MVVXMM9tBXxnlwz1lAAU1hGV4F14hEuF9g0HqOzwLpy7VRdAcxkoo6K6AIm63R6AS9wqMA6MsfMDgHcwG1EkdyL0SZTNpo/TW+BRea6vn3HZjBfKTyeD26wkUDOHcQajlXw+cxtpbLzM7mgrxl5UXMUr8uRzp2swFPUisuziu5WyQvC7kw4kde1zG0c7/MEfNoW+xvPpJ/xNvu52D4IiIjVlNKkikVEJ86iPUO/sJ5S+lkndwdHK4/dOJYwgtPZR7CUYw2tvVkCrmA6pbRZEa7hoa1Psac17cDWmWxWwYzVmhW3IvBP9v8JtPaDbmw7OKoCGxHRtw+yr+Ui126UWHVMH+B+RCzYutXQFRGn9hC4VcROyA/nDtHyJuddHMRFnGyphz/2EU9SSt9L8Dfl6UFpC0ywugAAAABJRU5ErkJggg=="
+                    onclick="show_main()"></p>
+        </div>
+        
+        <div class="data_container">
+            <p>Начало:</p><div id="start_pos"><p id="start_pos_data" class="start_pos_ptr">10</p></div>
+            <p>Конец:</p> <div id="end_pos"> <p id="end_pos_data" class="end_pos_ptr">105</p></div>
+        </div>
+
+        <div class="main_container">
+            <div>
+                <span id="textslider_value">%SLIDERVALUE%</span>
+            </div>
+            <input type="range" onchange="updateSliderPWM(this)" id="pwmSlider" min="0" max="180" value="%SLIDERVALUE%" step="1" class="slider">
+        </div>
+        <div class="data_container">
+            <div id="start_pos"><button type="button" name="submit" onclick="set_start()">Точка старта</button></div>
+            <div id="end_pos"><button type="button" name="submit" onclick="set_end()">Точка конца</button></div>
+        </div>
+
+
+        <div class="submit_container">
+            <button type="button" name="submit" onclick="updatedata()">Применить</button>
+        </div>
+    </body>
+
+
+    <script>
+        function updateSliderPWM(element) {
+            var slider_value = document.getElementById("pwmSlider").value;
+            document.getElementById("textslider_value").innerHTML = slider_value;
+            console.log(slider_value);
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/slider?value="+slider_value, true);
+            xhr.send();
+        }
+        function set_start(){
+            var slider_value = document.getElementById("pwmSlider").value;
+            var start = document.getElementById("start_pos_data");
+            start.innerHTML = slider_value;
+            console.log(slider_value);
+
+        }
+        function set_end(){
+            var slider_value = document.getElementById("pwmSlider").value;
+            var start = document.getElementById("end_pos_data");
+            start.innerHTML = slider_value;
+            console.log(slider_value);
+
+        }
+        function updatedata(){
+            console.log("update");
+        }
+
+
+    </script>
+    <style>
+        p{
+            padding-left: 10px;
+        }
+        h3{
+            margin-block-end: 0;
+        }
+        body {
+            max-width: 400px; 
+            margin:0px auto; 
+            padding-bottom: 25px;
+        }
+
+        .title_container{
+            width: 100%;
+            margin: 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-radius: 15px;
+            padding: 0;
+            background-color: #ffe0a6;
+            text-align: center;
+        }
+        .main_container{
+            width: 100%;
+            padding-top: 10px;
+            padding: auto;
+            background-color: #ffffff;
+            text-align: center;
+
+        }
+        .submit_container{
+            width: 100%;
+            margin: 0 auto;
+            padding: auto;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        .data_container{
+            width: 100%;
+            margin: 0 auto;
+            padding: auto;
+            background-color: #ffffff;
+            text-align: center;
+            display: flex;
+           
+        }
+
+        .start_pos_ptr{
+            background: #ffe0a6;
+            border-radius: 10px;
+            height: auto;
+            font-weight: bold;
+        }
+        .end_pos_ptr{
+            background: #ffe0a6;
+            border-radius: 10px;
+            height: auto;
+            font-weight: bold;
+        }
+
+        button[name="submit"] { 
+            width: 180px;
+            border: 1px solid #ffffff;
+            border-radius: 7px;
+            padding: 10px 25px;
+            background: #ffe0a6;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #000
+        }
+        button[name="submit"]:hover { 
+            background: #ff6600;
+        } 
+
+        .slider { 
+            -webkit-appearance: none; 
+            margin: 14px; 
+            width: 360px; 
+            height: 25px; 
+            background: #ffe0a6;
+            border-radius: 10px;
+            outline: none; 
+            -webkit-transition: .2s; 
+            transition: opacity .2s;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none; 
+            appearance: none; 
+            width: 35px; 
+            height: 35px; 
+            border-radius: 10px;
+            background:#ff6600; 
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb { 
+            width: 35px; 
+            height: 35px; 
+            background: #ff6600; 
+            cursor: pointer; 
+        } 
+        
+        #mini_header{
+            float: left;
+            display: block;
+            width: 300px;
+            margin-top: 7px;
+            padding-left: 40px;
+        }
+
+        #sett_icon{
+            float: left;
+            display: block;
+            width: 300px;
+            margin: 2px;
+        }
+
+        #end_pos, #start_pos, #end_but, #start_but{
+            flex: 1px;
+            margin: 2px;
+            
+        }
+        
+    </style>
+</html>

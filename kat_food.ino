@@ -6,7 +6,34 @@
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 
+/*
+String processor(const String& var){
+   if (var == "SLIDERVALUE"){
+     return slider_value;
+   }
+   return String();
+ }
 
+ setup
+
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+     request->send_P(200, "text/html", index_html, processor);
+   });
+
+   server.on("/slider", HTTP_GET, [] (AsyncWebServerRequest *request) {
+     String message;
+     if (request->hasParam(input_parameter)) {
+       message = request->getParam(input_parameter)->value();
+       slider_value = message;
+       myservo.write(slider_value.toInt());
+     }
+     else {
+       message = "No message sent";
+     }
+     Serial.println(message);
+     request->send(200, "text/plain", "OK");
+   });
+*/
 
 
 

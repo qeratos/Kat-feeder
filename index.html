@@ -9,7 +9,6 @@ const char index_html[] PROGMEM = R"rawliteral(
 <body>
   <div>
     <h2>Кормилка v1.0</h2>
-    
   </div>
   
   <div class="header_container">
@@ -120,15 +119,6 @@ const char index_html[] PROGMEM = R"rawliteral(
       xhr.open("GET", "/update", true);
       xhr.send();
   }
-  function updateSliderPWM(element) {
-    var slider_value = document.getElementById("pwmSlider").value;
-    document.getElementById("textslider_value").innerHTML = slider_value;
-    console.log(slider_value);
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/slider?value="+slider_value, true);
-    xhr.send();
-  }
-
   var clicked = 0;
 
   function toggle_style(numb){
